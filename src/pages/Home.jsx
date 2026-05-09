@@ -59,6 +59,7 @@ function Home({ searchQuery }) {
                     <span className={`flag-badge flag-${(post.flag || 'Discussion').toLowerCase()}`}>
                         {post.flag || 'Discussion'}
                     </span>
+                    {post.image_url && <img src={post.image_url} className="card-image" />}
                     <h2 className="post-title1">{post.title}</h2>
                     <p className="post-upvotes">{post.upvotes} upvotes</p>
                 </Link>

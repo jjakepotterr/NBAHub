@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 
-function PostPage() {
+function PostPage({user}) {
     const { id } = useParams()
     const [post, setPost] = useState(null)
     const [comments, setComments] = useState([])
@@ -45,7 +45,7 @@ function PostPage() {
         }
         const { error } = await supabase
             .from('comments')
-            .insert({ post_id: id, content: comment })
+            .insert({ post_id: id, content: comment, user_id: user?.id })
 
         if (error) console.error(error)
         else {
@@ -128,7 +128,7 @@ function PostPage() {
             </div>
             <div className="comments-section">
                 {comments.map(c => (
-                    <p className="comment" key={c.id}>- {c.content}</p>
+                    <p className="comment" key={c.id}>- {c.user_email}: {c.content}</p>
                 ))}
                 <input
                     className="comment-input"

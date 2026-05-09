@@ -2,7 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { supabase } from '../supabaseClient'
 import { useNavigate } from 'react-router-dom'
 
-function Navbar({ searchQuery, setSearchQuery, darkMode, setDarkMode, user, setUser }) {
+function Navbar({ searchQuery, setSearchQuery, darkMode, setDarkMode, user, setUser, username }) {
     const location = useLocation()
     const navigate = useNavigate()
 
@@ -28,17 +28,17 @@ function Navbar({ searchQuery, setSearchQuery, darkMode, setDarkMode, user, setU
                 />
             )}
             <div className="nav-links">
-                <Link to="/">Home</Link>
                 <Link to="/create">Create New Post</Link>
                 {user ? (
                     <>
-                        <span style={{ color: 'white', fontSize: '14px' }}> {user.email}</span>
+                        <Link to="/profile" style={{ color: 'white', fontSize: '14px', textDecoration: 'none' }}>
+                            👤 {username.username}
+                        </Link>
                         <button className="btn-logout" onClick={handleLogout}>Logout</button>
                     </>
                 ) : (
                     <>
                         <Link to="/login">Login</Link>
-                        <Link to="/signup">Sign Up</Link>
                     </>
                 )}
                 <button
